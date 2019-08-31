@@ -1,9 +1,8 @@
-const proxy = require('http-proxy-middleware');
+const proxy = require("http-proxy-middleware");
 
-module.exports = function(app) {
-  app.use(proxy('/ajax', { 
-    target: 'http://m.maoyan.com',
-    changeOrigin: true,
-    
-  }));
-};
+module.exports = (app) => {
+    app.use(proxy("/app", {
+        target: "http://rap2api.taobao.org",
+        changeOrigin: true
+    }))
+}

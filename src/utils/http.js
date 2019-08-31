@@ -1,32 +1,43 @@
-import {fetch as fetchPolyfill} from "whatwg-fetch";
+import {fetch as fetchPro} from "whatwg-fetch";
 import qs from "qs";
-const get = (url)=>{
-    var result = fetchPolyfill(url, {
-        credentials: 'include',
-        headers: {
-            'Accept': 'application/json, text/plain, */*',
-        },    
-   })
-   .then(res=>res.json());
+
+const get = (url,data)=>{
    
-   return result
+    if(data){
+        let str = "";
+        for(var key in data){
+            str += "&"+key+"="+data[key];
+        }
+    
+        url = url+"?"+str.substr(1);
+    }
+    
+
+    let result = fetchPro(url,{
+        credentials:"include",
+        headers:{
+            "content-type":"application/json"
+        }
+    }).then(res=>res.json());
+
+    return result;
+        
+
 }
 
 const post = (url,data)=>{
-    var result = fetch(url, {
-        method: 'POST',
-        credentials: 'include',
-        headers: {
-            'Accept': 'application/json, text/plain, */*',
-            'Content-Type': 'application/x-www-form-urlencoded'
+    let result = fetchPro(url,{
+        method:"POST",
+        credentials:"include",
+        headers:{
+            "content-type":"application/x-www-form-urlencoded"
         },
-        // 注意 post 时候参数的形式
-        body: qs(data)
-    })
-    .then(res=>res.json())
-    
+        body:qs.stringify(data)
+    }).then(res=>res.json());
+
     return result;
 }
+
 
 export default {
     get,

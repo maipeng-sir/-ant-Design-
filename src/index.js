@@ -1,25 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import store from "./store";
+import store from "./store"
 import {Provider} from "react-redux"
-import {noLayoutRouteComponent} from "./router"
-import {HashRouter as Router,Switch,Route} from "react-router-dom"
+import {HashRouter as Router,Route} from "react-router-dom";
+import {noLayoutRouter} from "@router";
+import routerEach from "@utils/routerEach";
+
+let RouteComponent = routerEach(noLayoutRouter)
 ReactDOM.render(
-    <Provider store={store}>
-        <Router>
-            <Switch> 
-                {
-                    noLayoutRouteComponent.map((item,index)=>{
-                       return <Route key={index}  path={item.path} render={()=>(
-                           <item.component/>
-                       )}/>
-                    })
-                }
-                <Route path="/" component={App}/>
-            </Switch>
-        </Router>
-    </Provider>
-    , 
-document.getElementById('root'));
+     <Router> 
+        <Provider store={store}>
+            <Route path="/" render={()=>(
+                <App/>
+            )}/>
+            {RouteComponent}
+        </Provider>
+    </Router>,
+    document.getElementById('root'));
+
 

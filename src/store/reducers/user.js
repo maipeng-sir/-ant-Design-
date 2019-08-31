@@ -1,8 +1,15 @@
-import {handleActions} from "redux-actions"
+import {handleActions} from "redux-actions";
+
 const defaultState = {
-    token:""
+    userInfo:""
 }
 
 export default handleActions({
-
-},defaultState)
+    LOGIN_ACTION:(state,action)=>{
+        let userState = Object.assign({},state);
+        userState.userInfo = action.payload.userinfo;
+       
+        sessionStorage.setItem("userInfo",action.payload.userinfo)
+        return userState;
+    }
+},defaultState);

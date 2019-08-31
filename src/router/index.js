@@ -1,48 +1,102 @@
 import {
-    Auth,
     Login,
-    HotBooks
+    UserAuth,
+    UserInfo,
+    PublicArticle,
+    HotBooks,
+    AddBooks,
+    Home
 } from "@pages"
 
-export const LayoutRouteComponent = [
+export const layoutRouter = [
     {
-        path:"/auth",
-        key:"/auth",
-        mete:{
-            login:true,
-        },
-        icon:"user",
-        name:"权限管理",
-        component:Auth
+       path:"/home",
+       component:Home,
+       icon:"user",
+       key:"/home", 
+       name:"首页",
+       meta:{
+           auth:true
+       }
     },
     {
         path:"/books",
-        key:"/books",
-        mete:{
-            login:true,
-        },
         icon:"user",
+        key:"/books", 
         name:"书籍管理",
-        //redirect: '/books/booksList',
         children:[
             {
-                path:"/books/booksList",
+                path:"/books/hotbooks",
                 component:HotBooks,
+                icon:"user",
+                key:"/books/hotbooks", 
                 name:"热门书籍",
-                key:"/books/booksList",
-            }
+                meta:{
+                    auth:true
+                }
+             },
+             {
+                path:"/books/addbooks",
+                component:AddBooks,
+                icon:"user",
+                key:"/books/addbooks", 
+                name:"添加书籍",
+                meta:{
+                    auth:true
+                }
+             },
+             {
+                path:"/books/publicArticle",
+                component:PublicArticle,
+                icon:"user",
+                key:"/books/publicArticle", 
+                name:"发布文章",
+                meta:{
+                    auth:true
+                }
+             }
         ]
-    }
-]
+     },
+     {
+        path:"/user",
+        icon:"user",
+        key:"/user", 
+        name:"用户管理",
+        children:[
+            {
+                path:"/user/userInfo",
+                component:UserInfo,
+                icon:"user",
+                key:"/user/userInfo", 
+                name:"个人信息",
+                meta:{
+                    auth:true
+                }
+             },
+             {
+                path:"/user/userAuth",
+                component:UserAuth,
+                icon:"user",
+                key:"/user/userAuth", 
+                name:"权限管理",
+                meta:{
+                    auth:true
+                }
+             } 
+        ]
+     }
+] 
 
-export const noLayoutRouteComponent = [
+export const noLayoutRouter = [
     {
         path:"/login",
-        mete:{
-            login:false,
-        },
-        icon:"user",
+        component:Login,
+        key:"/login",
         name:"登陆",
-        component:Login
-    },
-]
+        meta:{
+            auth:false
+        }
+    }
+] 
+
+export const  baseConfig = layoutRouter.concat(noLayoutRouter);

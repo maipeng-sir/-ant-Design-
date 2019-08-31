@@ -1,11 +1,10 @@
 import React, { Component, Fragment } from 'react'
-import { Table, Divider, Tag,Card  ,Button} from 'antd';
+import { Table, Divider, Tag, Card ,Button } from 'antd';
 import { connect } from "react-redux";
 import { Modal } from "antd";
 import { mapStateToProps, mapDispatchToProps } from "./connect";
 import ModelForm from "@components/ModelForm"
 import XLSX from "xlsx";
-
 
 class HotBooks extends Component {
   constructor() {
@@ -81,7 +80,20 @@ class HotBooks extends Component {
     return (
       <Fragment>
         <Card title="热门书籍" extra={<Button onClick={this.exportFile.bind(this)}>导出表格</Button>}>
-          <Table columns={columns} dataSource={hotBooks} scroll={{ y: 500 }} />
+          <Table 
+            rowSelection={{
+              onChange:this.handleTabOnchange.bind(this)
+            }}
+            columns={columns} 
+            dataSource={hotBooks} 
+            scroll={{ y: 500 }} 
+            pagination={{
+              defaultPageSize:15,
+              hideOnSinglePage:true,
+              total:200,
+              onChange:this.pageToggle.bind(this)
+            }}
+            />
         </Card>
         <Modal
           title="修改书籍"
@@ -93,6 +105,12 @@ class HotBooks extends Component {
         </Modal>
       </Fragment>
     )
+  }
+  handleTabOnchange(key,info){
+    console.log(key,info)
+  }
+  pageToggle(page,pagesize){
+    console.log(page,pagesize)
   }
   exportFile() {
     let data = [["书籍名称","书籍封面","书籍作者","书籍状态","书籍类型"]];
@@ -106,8 +124,6 @@ class HotBooks extends Component {
           }else{
             arr.push(hotBooks[i][key])
           }
-          
-
        }
        data.push(arr);
     }
@@ -134,7 +150,7 @@ class HotBooks extends Component {
   }
   handleDel(record) {
     Modal.confirm({
-      content: `您确定要删除${record.booksName}正本书吗？`,
+      content: `您确定要删除${record.booksName}整本书吗？`,
       okText: "确认",
       cancelText: "取消",
       onOk: () => {
@@ -142,8 +158,6 @@ class HotBooks extends Component {
         console.log(record.id)
       }
     })
-
-
   }
 }
 

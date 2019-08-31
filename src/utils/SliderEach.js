@@ -1,36 +1,39 @@
-import React from 'react'
-import { Menu, Icon } from 'antd';
+import React from "react";
+import {Menu, Icon} from "antd"
 const { SubMenu } = Menu;
 
-export default (tabBars)=>tabBars.map((item,index)=>{
-        if(item.children){
-              return  <SubMenu
-                    key={item.key}
-                    title={
+export default (routes) => {
+    let fn = (child) => {
+          return <SubMenu
+                key={child.key}
+                title={
                     <span>
-                        <Icon type={item.icon} />
-                        <span>{item.name}</span>
+                        <Icon type={child.icon} />
+                        <span>{child.name}</span>
                     </span>
                 }
-                >
+                
+            >
                 {
-                    item.children.map((child,idx)=>{
-                      
-                    return  <Menu.Item key={child.key} >
-                                <span className="nav-text">{child.name} </span>
-                            </Menu.Item>
-                    }) 
-                }
+                    child.children.map((item,index)=>{
+                        if(item.children){
+                            return fn(item);
+                        }else{
+                           return <Menu.Item key={item.key} >{item.name}</Menu.Item>
+                        }
+                    })
+                } 
             </SubMenu>
-        }else{
-             
-              
-            return <Menu.Item key={item.key}>
-                        <Icon type={item.icon} />
-                        <span className="nav-text">{item.name}</span>
-                    </Menu.Item>
+    }
+
+   return routes.map((child) => {
+        if (child.children) {
+            return fn(child)
+        } else {
+            return <Menu.Item key={child.key}>
+                <Icon type={child.icon} />
+                <span>{child.name}</span>
+            </Menu.Item>
         }
-    
-
-
-})
+    })
+}

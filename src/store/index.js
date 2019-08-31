@@ -1,10 +1,12 @@
-import {createStore,combineReducers,applyMiddleware} from "redux"
-import home from "./reducers/home"
+import {createStore,combineReducers,applyMiddleware} from "redux";
+import reduxThunk from "redux-thunk";
 import user from "./reducers/user"
-import reduxThunk from "redux-thunk"
-const reducer = combineReducers({
-    home,
-    user
-})
+import books from "./reducers/books"
 
-export default createStore(reducer,applyMiddleware(reduxThunk))
+const reducer = combineReducers({
+    user,
+    books
+})
+const store = createStore(reducer,applyMiddleware(reduxThunk))
+
+export default store;

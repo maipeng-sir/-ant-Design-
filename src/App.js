@@ -1,24 +1,21 @@
-import React from 'react';
-import { Switch,Redirect} from "react-router-dom";
-import routesEach from "@utils/routesEach"
-import LayoutCom from "@layout"
-import AuthRoute from "@common/authRoute"
-import {LayoutRouteComponent} from "@router"
-let pageRoute = routesEach(LayoutRouteComponent)
-class App extends React.Component {
+import React, { Component } from 'react'
+import LayoutWrapper from "@layout"
+import {Switch,Redirect} from "react-router-dom";
+import {layoutRouter} from "@router";
+import routerEach from "@utils/routerEach"
+import authRouter from "@common/authRouter";
+let routerEachComponent = routerEach(layoutRouter);
+ class App extends Component {
   render() {
     return (
-        <Switch>
-            <LayoutCom>
-              <Redirect from="/" to="/auth" exact/>
-              {
-                pageRoute
-              }
-            </LayoutCom>
-        </Switch>
+      <Switch>
+        <LayoutWrapper>
+          <Redirect from="/" to="/books/hotbooks" exact/>
+          {routerEachComponent}
+        </LayoutWrapper>
+      </Switch>
     )
   }
 }
 
-export default AuthRoute(App);
-
+export default authRouter(App)

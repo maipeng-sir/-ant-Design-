@@ -23,7 +23,7 @@ export default class UploadWrapper extends Component {
             name="avatar"
             listType="picture-card"
             className="avatar-uploader"
-            showUploadList={false}
+            //showUploadList={false}
             action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
             onChange={this.handleChange}
           >
