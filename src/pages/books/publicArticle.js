@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Card, Form, Input, Button } from "antd";
 import wangEditor from "wangeditor";
-
 class PublicArticle extends Component {
     render() {
         const { getFieldDecorator } = this.props.form;
@@ -14,11 +13,13 @@ class PublicArticle extends Component {
                                 rules: [{
                                     required: true,
                                     message: "章节名称必须填写"
+
                                 }]
                             })(
                                 <Input type="text" />
                             )
                         }
+
                     </Form.Item>
                     <Form.Item>
                         <div ref="aditorContent"></div>

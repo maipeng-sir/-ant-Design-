@@ -1,10 +1,11 @@
 import React, { Component, Fragment } from 'react'
-import { Table, Divider, Tag, Card ,Button } from 'antd';
+import { Table, Divider, Tag,Card  ,Button} from 'antd';
 import { connect } from "react-redux";
 import { Modal } from "antd";
 import { mapStateToProps, mapDispatchToProps } from "./connect";
 import ModelForm from "@components/ModelForm"
 import XLSX from "xlsx";
+
 
 class HotBooks extends Component {
   constructor() {
@@ -124,6 +125,8 @@ class HotBooks extends Component {
           }else{
             arr.push(hotBooks[i][key])
           }
+          
+
        }
        data.push(arr);
     }
@@ -150,7 +153,7 @@ class HotBooks extends Component {
   }
   handleDel(record) {
     Modal.confirm({
-      content: `您确定要删除${record.booksName}整本书吗？`,
+      content: `您确定要删除${record.booksName}正本书吗？`,
       okText: "确认",
       cancelText: "取消",
       onOk: () => {
@@ -158,6 +161,8 @@ class HotBooks extends Component {
         console.log(record.id)
       }
     })
+
+
   }
 }
 
